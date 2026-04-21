@@ -87,30 +87,34 @@ async function getCSVContents(local, remote) {
   }
 }
 
+function adjustFontSizeOnResize(item) {
+  let on_desktop = window.innerWidth > 1000
+  console.log("on_desktop: ", on_desktop)
+  document.body.style.setProperty('--font_size_small', `${item.font_size_base*0.5}px`);
+  document.body.style.setProperty('--font_size_base', `${item.font_size_base}px`);
+  document.body.style.setProperty('--font_size_h1', `${item.font_size_base*2}px`);
+  document.body.style.setProperty('--font_size_h2', `${Math.floor(item.font_size_base*1.5)}px`);
+  document.body.style.setProperty('--font_size_h3', `${Math.floor(item.font_size_base*1.25)}px`);
+  document.body.style.setProperty('--font_size_h4', `${item.font_size_base}px`);
+  document.body.style.setProperty('--font_size_title', `${item.font_size_base*4}px`);
+  if (on_desktop) {
+    document.body.style.setProperty('--font_size_small', `${item.font_size_base}px`); 
+    document.body.style.setProperty('--font_size_base', `${item.font_size_base*2}px`); 
+    document.body.style.setProperty('--font_size_h1', `${item.font_size_base*4}px`);
+    document.body.style.setProperty('--font_size_h2', `${item.font_size_base*3}px`);
+    document.body.style.setProperty('--font_size_h3', `${Math.floor(item.font_size_base*2.5)}px`);
+    document.body.style.setProperty('--font_size_h4', `${item.font_size_base*2}px`);
+    document.body.style.setProperty('--font_size_title', `${item.font_size_base*4}px`);
+
+  }
+}
+
+
 function buildPage(csvData) {
     let data = csvData
     console.log("building page")
   data.forEach(async (item) => {
       console.log("adding",item)
-      let on_desktop = window.innerWidth > 1000
-      console.log("on_desktop: ", on_desktop)
-      document.body.style.setProperty('--font_size_small', `${item.font_size_base*0.5}px`);
-      document.body.style.setProperty('--font_size_base', `${item.font_size_base}px`);
-      document.body.style.setProperty('--font_size_h1', `${item.font_size_base*2}px`);
-      document.body.style.setProperty('--font_size_h2', `${item.font_size_base*1.5}px`);
-      document.body.style.setProperty('--font_size_h3', `${item.font_size_base*1.25}px`);
-      document.body.style.setProperty('--font_size_h4', `${item.font_size_base}px`);
-      document.body.style.setProperty('--font_size_title', `${item.font_size_base*4}px`);
-      if (on_desktop) {
-        document.body.style.setProperty('--font_size_small', `${item.font_size_base}px`); 
-        document.body.style.setProperty('--font_size_base', `${item.font_size_base*2}px`); 
-        document.body.style.setProperty('--font_size_h1', `${item.font_size_base*4}px`);
-        document.body.style.setProperty('--font_size_h2', `${item.font_size_base*3}px`);
-        document.body.style.setProperty('--font_size_h3', `${item.font_size_base*2.5}px`);
-        document.body.style.setProperty('--font_size_h4', `${item.font_size_base*2}px`);
-        document.body.style.setProperty('--font_size_title', `${item.font_size_base*4}px`);
-
-      }
 
       if (item.component == "theme"){
           // for each key in item, set the corresponding css variable
@@ -121,6 +125,13 @@ function buildPage(csvData) {
             }
             document.body.style.setProperty(`--${key}`, value);
           }
+          // adjust font size on resize
+          window.onresize =() => {
+            // alert("resize")
+            adjustFontSizeOnResize(item)
+          }
+
+          adjustFontSizeOnResize(item)
 
           // document.body.style.setProperty('--background', item.bg_color);
           // document.body.style.setProperty('--text', item.text_color);
