@@ -113,7 +113,7 @@ function adjustFontSizeOnResize(item) {
 function buildPage(csvData) {
     let data = csvData
     console.log("building page")
-  data.forEach(async (item) => {
+    data.forEach(async (item) => {
       console.log("adding",item)
 
       if (item.component == "theme"){
@@ -162,7 +162,12 @@ function buildPage(csvData) {
         })
       }
         
-    });
+    })
+    let subfooter = document.createElement("div")
+    subfooter.id = "subfooter"
+    document.getElementById("body").appendChild(subfooter)
+    subfooter.innerHTML = `<a id="power" href="https://innovainformationtechnologies.netlify.app/">Powered By Innova</a>`
+    
 }
 
 
@@ -270,5 +275,7 @@ window.componentRegistry = {
         return this.components[name];
     }
 }
+const componentRegistry = window.componentRegistry
+const messageBus = window.messageBus
 
-export { getCSVContents, buildPage}
+export { getCSVContents, buildPage, loadComponent, componentRegistry, messageBus }
