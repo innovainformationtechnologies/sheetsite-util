@@ -151,6 +151,7 @@ function buildPage(csvData) {
       if ("parent_id" in item && item.parent_id != null ){
         console.log("parent id", item.parent_id)
         document.getElementById(item.parent_id).appendChild(slot)
+        slot.style.maxWidth = "fit-content"
         await loadComponent(item.component, document.getElementById(slot.id)).then((comp) => {
           window.componentRegistry.get(item.component)(item);
         })
@@ -165,8 +166,10 @@ function buildPage(csvData) {
     })
     let subfooter = document.createElement("div")
     subfooter.id = "subfooter"
+    subfooter.classList.add("slot")
     document.getElementById("body").appendChild(subfooter)
     subfooter.innerHTML = `<a id="power" href="https://innovainformationtechnologies.netlify.app/">Powered By Innova</a>`
+    document.getElementById("power").style.margin = "4rem"
     
 }
 
