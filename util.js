@@ -99,7 +99,7 @@ function adjustFontSizeOnResize(item) {
   document.body.style.setProperty('--font_size_title', `${item.font_size_base*4}px`);
   if (on_desktop) {
     document.body.style.setProperty('--font_size_small', `${item.font_size_base}px`); 
-    document.body.style.setProperty('--font_size_base', `${item.font_size_base*2}px`); 
+    document.body.style.setProperty('--font_size_base', `${item.font_size_base*1.1}px`); 
     document.body.style.setProperty('--font_size_h1', `${item.font_size_base*4}px`);
     document.body.style.setProperty('--font_size_h2', `${item.font_size_base*3}px`);
     document.body.style.setProperty('--font_size_h3', `${Math.floor(item.font_size_base*2.5)}px`);
@@ -151,7 +151,6 @@ function buildPage(csvData) {
       if ("parent_id" in item && item.parent_id != null ){
         console.log("parent id", item.parent_id)
         document.getElementById(item.parent_id).appendChild(slot)
-        slot.style.maxWidth = "fit-content"
         await loadComponent(item.component, document.getElementById(slot.id)).then((comp) => {
           window.componentRegistry.get(item.component)(item);
         })
@@ -166,10 +165,8 @@ function buildPage(csvData) {
     })
     let subfooter = document.createElement("div")
     subfooter.id = "subfooter"
-    subfooter.classList.add("slot")
     document.getElementById("body").appendChild(subfooter)
     subfooter.innerHTML = `<a id="power" href="https://innovainformationtechnologies.netlify.app/">Powered By Innova</a>`
-    document.getElementById("power").style.margin = "4rem"
     
 }
 
