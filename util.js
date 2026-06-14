@@ -1,4 +1,4 @@
-
+`   
 async function navigateTo(page){
    let url = new URLSearchParams(location.search)
     const header = document.querySelector("header")
@@ -167,6 +167,9 @@ function buildPage(csvData) {
     subfooter.id = "subfooter"
     document.getElementById("body").appendChild(subfooter)
     subfooter.innerHTML = `<a id="power" href="https://innovainformationtechnologies.netlify.app/">Powered By Innova</a>`
+    subfooter.style.color = "var(--primary_color)"
+    subfooter.style.textAlign = "center"
+    subfooter.style.margin = "2rem auto"
     
 }
 
