@@ -1,5 +1,4 @@
-`   
-async function navigateTo(page){
+ async function navigateTo(page){
    let url = new URLSearchParams(location.search)
     const header = document.querySelector("header")
     url.set("page", page)
